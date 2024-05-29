@@ -44,6 +44,6 @@ set_total_price = 'Total: $58.29'
 
 try:
     assert all_price == set_total_price
-    print('Итоговая сумма совпадает с заданной и равна: ', all_price)
+    print("Итоговая сумма совпадает с заданной и равна: ", all_price)
 except:
     print('Итоговая сумма отличается и равна: ', all_price)
