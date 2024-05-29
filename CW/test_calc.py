@@ -1,5 +1,5 @@
 import pytest
-from CW.calc import Calculator
+from calc import Calculator
 
 
 @pytest.mark.parametrize('num_1, action, num_2, set_result, set_time',
