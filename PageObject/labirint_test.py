@@ -5,6 +5,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+browser = webdriver.Chrome(
+    service=ChromeService(ChromeDriverManager().install())
+    )
+
 
 cookie = {
     "name": "cookie_policy",
@@ -12,31 +16,52 @@ cookie = {
 }
 
 
-def test_cart_counter():
-    browser = webdriver.Chrome(service=ChromeService(ChromeDriverManager().
-                                                     install()))
-    #Перейти на сайт лабиринта
+def go_to_site():
     browser.get("https://www.labirint.ru/")
     browser.implicitly_wait(4)
     browser.maximize_window()
     browser.add_cookie(cookie)
-    #найти все книги по слову питон
-    browser.find_element(By.CSS_SELECTOR, "#search-field").send_keys("python")
+
+
+def search_books(term):
+    browser.find_element(By.CSS_SELECTOR, "#search-field").send_keys(term)
     browser.find_element(By.CSS_SELECTOR, "button[type=submit]").click()
     WebDriverWait(browser, 10).until(
         EC.presence_of_element_located((By.CSS_SELECTOR, "section.search-tab"))
     )
-    #Добавить все книги в корзину и посчитать сколько
-    buy_bottons = browser.find_elements(By.CSS_SELECTOR, "._btn.btn-tocart.buy-link")
+
+
+def add_books():
+    buy_bottons = browser.find_elements(
+        By.CSS_SELECTOR, "._btn.btn-tocart.buy-link"
+        )
     counter = 0
     for btn in buy_bottons:
         btn.click()
         counter += 1
-    #Перейти в корзину
+    return counter
+
+
+def go_to_cart():
     browser.get("https://www.labirint.ru/cart/")
-    #Проверить, что счетчик товаров должен быть равен числу нажатий
-    a = browser.find_element(By.CSS_SELECTOR, "a[data-event-label='myCart']")
-    txt = a.find_element(By.CSS_SELECTOR, "b").text
-    txt = int(txt)
-    assert counter == txt
+
+
+def count_added_books():
+    amount_of_added_books = browser.find_element(
+        By.CSS_SELECTOR, "a[data-event-label='myCart']").find_element(
+            By.CSS_SELECTOR, "b").text
+    return int(amount_of_added_books)
+
+
+def close_browser():
     browser.quit()
+
+
+def test_cart_counter():
+    go_to_site()
+    search_books('python')
+    added = add_books()
+    go_to_cart()
+    amount_in_cart = count_added_books()
+    close_browser()
+    assert added == amount_in_cart
