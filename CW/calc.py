@@ -21,4 +21,5 @@ class Calculator:
         driver.find_element(By.XPATH, "//*[contains(text(),'=')]").click()
         sleep(int(set_time))
         res = driver.find_element(By.CSS_SELECTOR, "div.screen").text
+        driver.quit()
         return res

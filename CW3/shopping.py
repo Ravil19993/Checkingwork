@@ -41,4 +41,5 @@ class Shopping:
     def total_price(self):
         a = driver.find_element(
             By.CSS_SELECTOR, '[class="summary_total_label"]').text
+        driver.quit()
         return a

@@ -55,5 +55,6 @@ class Color:
             value_of_css_property('background-color')
         company = driver.find_element(By.CSS_SELECTOR, company).\
             value_of_css_property('background-color')
+        driver.quit()
         return zip_code, first_name, last_name, address, e_mail, phone, city, \
             country, job_position, company
