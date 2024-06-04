@@ -1,9 +1,11 @@
 from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.by import By
 
-
+#driver = webdriver.Firefox(options=webdriver.FirefoxOptions())
 driver = webdriver.Chrome(
     service=ChromeService(ChromeDriverManager().install()))
 
@@ -32,8 +34,11 @@ class Color:
             send_keys("QA")
         driver.find_element(By.CSS_SELECTOR, "[name='company']").\
             send_keys("SkyPro")
-        driver.find_element(By.CSS_SELECTOR, '.btn.btn-outline-primary.mt-3').\
-            click()
+
+        WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable(
+                (By.CSS_SELECTOR, 'button.btn.btn-outline-primary.mt-3')
+                )).click()
 
         zip_code = driver.find_element(By.CSS_SELECTOR, zip_code).\
             value_of_css_property('background-color')
