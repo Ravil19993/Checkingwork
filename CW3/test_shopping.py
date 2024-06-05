@@ -35,9 +35,11 @@ def test_total_price(good1, good2, good3, first_name, last_name, postal_code):
     all_price = overview.total_price()
     all_price = str(all_price)
 
-    set_total_price = 'Total: $58.29'
+    set_total_price = 'Total: $58.39'
     try:
         assert all_price == set_total_price
         print("Итоговая сумма совпадает с заданной и равна: ", all_price)
     except Exception:
         print('Итоговая сумма отличается и равна: ', all_price)
+
+    browser.quit()

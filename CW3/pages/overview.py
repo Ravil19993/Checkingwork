@@ -8,5 +8,5 @@ class Overview:
     def total_price(self):
         a = self._driver.find_element(
             By.CSS_SELECTOR, '[class="summary_total_label"]').text
-        self._driver.quit()
+
         return a
