@@ -1,60 +1,61 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
-
-
-driver = webdriver.Chrome(
-    service=ChromeService(ChromeDriverManager().install()))
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class Color:
+    def __init__(self, browser):
+        self._driver = browser
+
     def get_background_color(self, zip_code, first_name, last_name, address,
                              e_mail, phone, city, country, job_position,
                              company):
-        driver.get(
+        self._driver.get(
             "https://bonigarcia.dev/selenium-webdriver-java/data-types.html")
-        driver.find_element(By.CSS_SELECTOR, "[name='first-name']").\
+        self._driver.find_element(By.CSS_SELECTOR, "[name='first-name']").\
             send_keys("Иван")
-        driver.find_element(By.CSS_SELECTOR, "[name='last-name']").\
+        self._driver.find_element(By.CSS_SELECTOR, "[name='last-name']").\
             send_keys("Петров")
-        driver.find_element(By.CSS_SELECTOR, "[name='address']").\
+        self._driver.find_element(By.CSS_SELECTOR, "[name='address']").\
             send_keys("Ленина, 55-3")
-        driver.find_element(By.CSS_SELECTOR, "[name='e-mail']").\
+        self._driver.find_element(By.CSS_SELECTOR, "[name='e-mail']").\
             send_keys("test@skypro.com")
-        driver.find_element(By.CSS_SELECTOR, "[name='phone']").\
+        self._driver.find_element(By.CSS_SELECTOR, "[name='phone']").\
             send_keys("+7985899998787")
-        driver.find_element(By.CSS_SELECTOR, "[name='city']").\
+        self._driver.find_element(By.CSS_SELECTOR, "[name='city']").\
             send_keys("Москва")
-        driver.find_element(By.CSS_SELECTOR, "[name='country']").\
+        self._driver.find_element(By.CSS_SELECTOR, "[name='country']").\
             send_keys("Россия")
-        driver.find_element(By.CSS_SELECTOR, "[name='job-position']").\
+        self._driver.find_element(By.CSS_SELECTOR, "[name='job-position']").\
             send_keys("QA")
-        driver.find_element(By.CSS_SELECTOR, "[name='company']").\
+        self._driver.find_element(By.CSS_SELECTOR, "[name='company']").\
             send_keys("SkyPro")
-        driver.find_element(By.CSS_SELECTOR, '.btn.btn-outline-primary.mt-3').\
-            click()
 
-        zip_code = driver.find_element(By.CSS_SELECTOR, zip_code).\
+        WebDriverWait(self._driver, 10).until(
+            EC.element_to_be_clickable(
+                (By.CSS_SELECTOR, 'button.btn.btn-outline-primary.mt-3')
+                )).click()
+
+        zip_code = self._driver.find_element(By.CSS_SELECTOR, zip_code).\
             value_of_css_property('background-color')
-        first_name = driver.find_element(By.CSS_SELECTOR, first_name).\
+        first_name = self._driver.find_element(By.CSS_SELECTOR, first_name).\
             value_of_css_property('background-color')
-        last_name = driver.find_element(By.CSS_SELECTOR, last_name).\
+        last_name = self._driver.find_element(By.CSS_SELECTOR, last_name).\
             value_of_css_property('background-color')
-        address = driver.find_element(By.CSS_SELECTOR, address).\
+        address = self._driver.find_element(By.CSS_SELECTOR, address).\
             value_of_css_property('background-color')
-        e_mail = driver.find_element(By.CSS_SELECTOR, e_mail).\
+        e_mail = self._driver.find_element(By.CSS_SELECTOR, e_mail).\
             value_of_css_property('background-color')
-        phone = driver.find_element(By.CSS_SELECTOR, phone).\
+        phone = self._driver.find_element(By.CSS_SELECTOR, phone).\
             value_of_css_property('background-color')
-        city = driver.find_element(By.CSS_SELECTOR, city).\
+        city = self._driver.find_element(By.CSS_SELECTOR, city).\
             value_of_css_property('background-color')
-        country = driver.find_element(By.CSS_SELECTOR, country).\
+        country = self._driver.find_element(By.CSS_SELECTOR, country).\
             value_of_css_property('background-color')
-        job_position = driver.find_element(By.CSS_SELECTOR, job_position).\
+        job_position = self._driver.find_element(
+            By.CSS_SELECTOR, job_position).value_of_css_property(
+                'background-color')
+        company = self._driver.find_element(By.CSS_SELECTOR, company).\
             value_of_css_property('background-color')
-        company = driver.find_element(By.CSS_SELECTOR, company).\
-            value_of_css_property('background-color')
-        driver.quit()
         return zip_code, first_name, last_name, address, e_mail, phone, city, \
             country, job_position, company
