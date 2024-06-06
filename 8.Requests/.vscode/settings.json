@@ -1,0 +1,7 @@
+{
+    "python.testing.pytestArgs": [
+        "7.PageObject"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}

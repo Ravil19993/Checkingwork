@@ -1,11 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
-from pages.authorization import AuthorizationPage
-from pages.adding_goods import AddGoodsPage
-from pages.cart import CheckCart
-from pages.checkout import Checkout
-from pages.overview import Overview
+from pages.AuthorizationPage import AuthorizationPage
+from pages.AddingGoodsPage import AddGoodsPage
+from pages.CartPage import CheckCart
+from pages.CheckoutPage import Checkout
+from pages.OverviewPage import Overview
 import pytest
 
 

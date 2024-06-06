@@ -2,7 +2,7 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
-from calc import Calculator
+from CalcPage import Calculator
 
 
 @pytest.mark.parametrize('num_1, action, num_2, set_result, set_time',
