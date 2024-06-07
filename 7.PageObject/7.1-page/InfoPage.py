@@ -1,11 +1,14 @@
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
+from faker import Faker
+from time import sleep
+
+fake = Faker('ru_RU')
 
 
 class Color:
     def __init__(self, browser):
         self._driver = browser
+        self._driver.maximize_window()
 
     def get_background_color(self, zip_code, first_name, last_name, address,
                              e_mail, phone, city, country, job_position,
@@ -13,28 +16,29 @@ class Color:
         self._driver.get(
             "https://bonigarcia.dev/selenium-webdriver-java/data-types.html")
         self._driver.find_element(By.CSS_SELECTOR, "[name='first-name']").\
-            send_keys("Иван")
+            send_keys(fake.first_name_male())
         self._driver.find_element(By.CSS_SELECTOR, "[name='last-name']").\
-            send_keys("Петров")
+            send_keys(fake.last_name_male())
         self._driver.find_element(By.CSS_SELECTOR, "[name='address']").\
-            send_keys("Ленина, 55-3")
+            send_keys(fake.street_address())
         self._driver.find_element(By.CSS_SELECTOR, "[name='e-mail']").\
-            send_keys("test@skypro.com")
+            send_keys(fake.ascii_free_email())
         self._driver.find_element(By.CSS_SELECTOR, "[name='phone']").\
-            send_keys("+7985899998787")
+            send_keys(fake.phone_number())
         self._driver.find_element(By.CSS_SELECTOR, "[name='city']").\
-            send_keys("Москва")
+            send_keys(fake.city())
         self._driver.find_element(By.CSS_SELECTOR, "[name='country']").\
-            send_keys("Россия")
+            send_keys(fake.country())
         self._driver.find_element(By.CSS_SELECTOR, "[name='job-position']").\
-            send_keys("QA")
+            send_keys(fake.job())
         self._driver.find_element(By.CSS_SELECTOR, "[name='company']").\
-            send_keys("SkyPro")
+            send_keys(fake.company())
+        sleep(4)
 
-        WebDriverWait(self._driver, 10).until(
-            EC.element_to_be_clickable(
-                (By.CSS_SELECTOR, 'button.btn.btn-outline-primary.mt-3')
-                )).click()
+        self._driver.execute_script(
+            "window.scrollTo(0, document.body.scrollHeight)")
+        self._driver.find_element(
+            By.CSS_SELECTOR, 'button.btn.btn-outline-primary.mt-3').click()
 
         zip_code = self._driver.find_element(By.CSS_SELECTOR, zip_code).\
             value_of_css_property('background-color')

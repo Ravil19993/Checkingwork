@@ -10,12 +10,12 @@ import pytest
 
 
 @pytest.mark.parametrize(
-        'good1, good2, good3, first_name, last_name, postal_code',
+        'good1, good2, good3',
         [('#add-to-cart-sauce-labs-backpack',
           '#add-to-cart-sauce-labs-bolt-t-shirt',
-          '#add-to-cart-sauce-labs-onesie',
-          'Равиль', 'Зиятдинов', '617700')])
-def test_total_price(good1, good2, good3, first_name, last_name, postal_code):
+          '#add-to-cart-sauce-labs-onesie')]
+          )
+def test_total_price(good1, good2, good3):
     browser = webdriver.Chrome(
         service=ChromeService(ChromeDriverManager().install()))
 
@@ -29,7 +29,7 @@ def test_total_price(good1, good2, good3, first_name, last_name, postal_code):
     cart.checking_cart()
 
     customer = Checkout(browser)
-    customer.info_about_customer(first_name, last_name, postal_code)
+    customer.info_about_customer()
 
     overview = Overview(browser)
     all_price = overview.total_price()

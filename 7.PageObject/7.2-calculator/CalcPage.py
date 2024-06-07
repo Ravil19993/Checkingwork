@@ -5,6 +5,7 @@ from time import sleep
 class Calculator:
     def __init__(self, browser):
         self._driver = browser
+        self._driver.maximize_window()
         self._driver.get(
             "https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html")
 
