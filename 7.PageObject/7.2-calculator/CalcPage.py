@@ -13,6 +13,8 @@ class Calculator:
         self._driver.find_element(By.CSS_SELECTOR, "#delay").clear()
         self._driver.find_element(
             By.CSS_SELECTOR, "#delay").send_keys(set_time)
+        self._driver.execute_script(
+            "window.scrollTo(0, document.body.scrollHeight)")
         self._driver.find_element(By.XPATH, num_1).click()
         self._driver.find_element(By.XPATH, action).click()
         self._driver.find_element(By.XPATH, num_2).click()
