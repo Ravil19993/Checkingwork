@@ -34,7 +34,7 @@ def test_add_new_company():
     resp = api.create_new_company(name, description)
     new_id = resp["id"]
 
-    # Получаем информацию о созданной организации 
+    # Получаем информацию о созданной организации
     new_company = api.get_info_about_company(new_id)
 
     # Снова смотрим кол-во имеющихся организаций
