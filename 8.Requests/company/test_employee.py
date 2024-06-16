@@ -113,14 +113,14 @@ def test_change_employee_info():
         "isActive": True
     }
 
-    employee.change_info(employee_id, edit_params)
+    employee.change_info(employee_id, edit_params)  # Внесли изменения
     employee_edited = employee.get_info_about_employee(employee_id)
 
     # Проверки на соответствие данных во всех полях
     assert edit_params["lastName"] == employee_edited["lastName"]
     assert edit_params["email"] == employee_edited["email"]
-    assert edit_params["url"] == employee_edited["url"] # Сервер возвращает ключ avatar_url вместо url
-    assert edit_params["phone"] == employee_edited["phone"] # Сервер не заменяет телефон пользователя
+    assert edit_params["url"] == employee_edited["url"]  # Сервер возвращает ключ avatar_url вместо url
+    assert edit_params["phone"] == employee_edited["phone"]  # Сервер не перезаписывает телефон пользователя
     assert edit_params["isActive"] == employee_edited["isActive"]
     assert employee_params["firstName"] == employee_edited["firstName"]
     assert employee_params["middleName"] == employee_edited["middleName"]
