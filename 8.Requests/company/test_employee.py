@@ -209,10 +209,10 @@ def test_change_employee_info_with_empty_request():
 
     # Проверки на соответствие данных во всех полях
     assert employee_params["lastName"] == employee_edited["lastName"]
-    # assert employee_params["email"] == employee_edited["email"] # Сервер не сохраняет email пользователя
-    assert employee_params["url"] == employee_edited["avatar_url"] # Сервер возвращает ключ avatar_url вместо url
-    # assert edit_params["phone"] == employee_edited["phone"] # Сервер не перезаписывает телефон пользователя
-    # assert edit_params["isActive"] == employee_edited["isActive"] # Ключ убран, так как в Patch запросе не отправлен
+    # assert employee_params["email"] == employee_edited["email"]  # Сервер не сохраняет email пользователя
+    assert employee_params["url"] == employee_edited["avatar_url"]  # Сервер возвращает ключ avatar_url вместо url
+    assert employee_params["phone"] == employee_edited["phone"]
+    assert employee_params["isActive"] == employee_edited["isActive"]
     assert employee_params["firstName"] == employee_edited["firstName"]
     assert employee_params["middleName"] == employee_edited["middleName"]
     assert employee_params["companyId"] == employee_edited["companyId"]
