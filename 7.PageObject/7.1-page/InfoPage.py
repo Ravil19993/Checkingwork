@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from faker import Faker
 from time import sleep
+from selenium.webdriver.common.action_chains import ActionChains
 
 fake = Faker('ru_RU')
 
@@ -37,6 +38,9 @@ class Color:
 
         self._driver.execute_script(
             "window.scrollTo(0, document.body.scrollHeight)")
+        element = self._driver.find_element_by_id("my-id")
+        actions = ActionChains(self._driver)
+        actions.move_to_element(element).perform()
         self._driver.find_element(
             By.CSS_SELECTOR, 'button.btn.btn-outline-primary.mt-3').click()
 

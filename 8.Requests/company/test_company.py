@@ -1,4 +1,5 @@
 from ApiCompany import ApiCompany
+from time import sleep
 
 base_url = 'https://x-clients-be.onrender.com/'
 api = ApiCompany(base_url)
@@ -137,6 +138,7 @@ def test_delete():
 
     # Удаляем созданную организацию
     deleted = api.delete_company(new_id)
+    sleep(4)  # Серверу необходимо время для обращения в БД и обновления данных о компании
 
     # Проверяем, что ID последней созданной компании = ID удаленной компании
     assert new_id == deleted["id"]

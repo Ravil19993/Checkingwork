@@ -10,11 +10,11 @@ class ApiCompany:
             'username': user,
             'password': password
         }
-        resp = requests.post(self.base_url + '/auth/login', json=creds)
+        resp = requests.post(self.base_url + 'auth/login', json=creds)
         return resp.json()["userToken"]
 
     def get_list_of_companies(self, my_params):
-        resp = requests.get(self.base_url + '/company', params=my_params)
+        resp = requests.get(self.base_url + 'company', params=my_params)
         return resp.json()
 
     def create_new_company(self, name, description):
